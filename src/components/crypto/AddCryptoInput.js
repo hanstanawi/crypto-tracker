@@ -1,8 +1,20 @@
-import React from 'react';
+import { useState } from 'react';
 
-const AddCryptoInput = () => {
+const AddCryptoInput = ({ onAddCrypto }) => {
+  const [enteredName, setEnteredName] = useState('');
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    onAddCrypto(enteredName);
+    setEnteredName('');
+  };
+
+  const setInputHandler = (e) => {
+    setEnteredName(e.target.value);
+  };
+
   return (
-    <form className='my-4 sm:flex sm:max-w-md'>
+    <form className='my-4 sm:flex sm:max-w-md' onSubmit={submitHandler}>
       <label htmlFor='email-address' className='sr-only'>
         Add Crypto
       </label>
@@ -11,6 +23,8 @@ const AddCryptoInput = () => {
         name='crypto'
         className='appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:placeholder-gray-400'
         placeholder='Enter Crypto Name or Ticker'
+        onChange={setInputHandler}
+        value={enteredName}
       />
       <div className='mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0'>
         <button

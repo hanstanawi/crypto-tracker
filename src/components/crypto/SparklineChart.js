@@ -1,11 +1,10 @@
 import React from 'react';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
-const SparklineChart = ({ data }) => {
-  console.log(data);
+const SparklineChart = ({ data, isIncreasing }) => {
   return (
     <Sparklines data={data} width={120} height={80} margin={2}>
-      <SparklinesLine color='green' />
+      <SparklinesLine color={isIncreasing ? 'green' : 'red'} />
     </Sparklines>
   );
 };

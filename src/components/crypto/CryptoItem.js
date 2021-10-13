@@ -3,6 +3,8 @@ import SparklineChart from './SparklineChart';
 import { numberWithCommas } from '../../helpers/numberUtils';
 
 const CryptoItem = ({ crypto }) => {
+  const priceIsIncreasing = crypto.price_change_24h > 0;
+
   return (
     <tr>
       <td className='px-6 py-4 whitespace-nowrap'>
@@ -53,7 +55,10 @@ const CryptoItem = ({ crypto }) => {
       </td>
       {/* CHART */}
       <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-        <SparklineChart data={crypto.sparkline_in_7d.price} />
+        <SparklineChart
+          data={crypto.sparkline_in_7d.price}
+          isIncreasing={priceIsIncreasing}
+        />
       </td>
     </tr>
   );
