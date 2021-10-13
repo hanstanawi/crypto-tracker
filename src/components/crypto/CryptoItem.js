@@ -1,7 +1,8 @@
 import React from 'react';
+import SparklineChart from './SparklineChart';
 import { numberWithCommas } from '../../helpers/numberUtils';
 
-const CryptoItem = ({ crypto, index }) => {
+const CryptoItem = ({ crypto }) => {
   return (
     <tr>
       <td className='px-6 py-4 whitespace-nowrap'>
@@ -38,16 +39,6 @@ const CryptoItem = ({ crypto, index }) => {
       >
         {crypto.price_change_percentage_24h}
       </td>
-      {/*  7D */}
-      <td
-        className={`px-6 py-4 whitespace-nowrap text-sm ${
-          crypto.price_change_percentage_24h > 0
-            ? 'text-green-400'
-            : 'text-red-600'
-        }`}
-      >
-        {crypto.price_change_percentage_24h}
-      </td>
       {/* MARKET CAP */}
       <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
         ${numberWithCommas(crypto.market_cap)}
@@ -62,13 +53,7 @@ const CryptoItem = ({ crypto, index }) => {
       </td>
       {/* CHART */}
       <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-        {/* {crypto.role} */}
-        Chart
-      </td>
-      <td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-        {/* <a href='#' className='text-indigo-600 hover:text-indigo-900'>
-          Edit
-        </a> */}
+        <SparklineChart data={crypto.sparkline_in_7d.price} />
       </td>
     </tr>
   );
