@@ -6,7 +6,7 @@ const CryptoItem = ({ crypto, index }) => {
     <tr>
       <td className='px-6 py-4 whitespace-nowrap'>
         <span className='px-2 inline-flex leading-5 rounded-full text-sm font-medium text-gray-900'>
-          {index + 1}
+          {crypto.index}
         </span>
       </td>
       <td className='px-6 py-4 whitespace-nowrap'>

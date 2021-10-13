@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
 import cryptoAPI from '../../api/cryptoAPI';
+import useSortable from '../../hooks/use-sortable';
 import CryptoItem from './CryptoItem';
 
 const Table = () => {
   const [cryptos, setCryptos] = useState([]);
+  const { items: sortedCryptos, requestSort } = useSortable(cryptos);
 
   const fetchCryptoData = async () => {
     try {
       const res = await cryptoAPI.fetchCrypto();
-      setCryptos(res.data);
+      const listWithIndexes = res.data.map((data, index) => {
+        return {
+          ...data,
+          index: index + 1,
+        };
+      });
+      setCryptos(listWithIndexes);
     } catch (err) {
       console.log(err);
     }
@@ -28,25 +36,29 @@ const Table = () => {
                 <tr>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('index')}
                   >
                     #
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('name')}
                   >
                     Name
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('current_price')}
                   >
                     Price
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('price_change_percentage_24h')}
                   >
                     24h %
                   </th>
@@ -58,19 +70,22 @@ const Table = () => {
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('market_cap')}
                   >
                     Market Cap
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('total_volume')}
                   >
                     Volume
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer'
+                    onClick={() => requestSort('circulating_supply')}
                   >
                     Circulating Supply
                   </th>
@@ -86,8 +101,8 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody className='bg-white divide-y divide-gray-200'>
-                {cryptos.map((crypto, index) => (
-                  <CryptoItem key={crypto.id} index={index} crypto={crypto} />
+                {sortedCryptos.map((crypto) => (
+                  <CryptoItem key={crypto.id} crypto={crypto} />
                 ))}
               </tbody>
             </table>
