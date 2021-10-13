@@ -156,9 +156,6 @@ const Table = () => {
                   >
                     Last 7 Days
                   </th>
-                  {/* <th scope='col' className='relative px-6 py-3'>
-                    <span className='sr-only'>Edit</span>
-                  </th> */}
                 </tr>
               </thead>
               <tbody className='bg-white divide-y divide-gray-200'>

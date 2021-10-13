@@ -15,7 +15,7 @@ const AddCryptoInput = ({ onAddCrypto }) => {
 
   return (
     <form className='my-4 sm:flex sm:max-w-md' onSubmit={submitHandler}>
-      <label htmlFor='email-address' className='sr-only'>
+      <label htmlFor='label' className='sr-only'>
         Add Crypto
       </label>
       <input
